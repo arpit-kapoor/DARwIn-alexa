@@ -2,8 +2,6 @@ from flask import Flask
 from flask_ask import Ask, statement, question, session
 import os
 import random
-import csv, sqlite3
-#from rMinus3 import *
 import time
 
 app = Flask(__name__)
