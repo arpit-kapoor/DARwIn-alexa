@@ -19,7 +19,7 @@ def start_skill():
 
 def execute(motion):
     motion_dict = {'bow':'1 Bow'}
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("rMinus.db")
     cur = con.cursor()
     cur.execute('SELECT * FROM pagedata where Page="'+motion_dict['bow']+'";')
     print(cur.fetchall())
