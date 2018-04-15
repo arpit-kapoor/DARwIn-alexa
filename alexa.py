@@ -3,9 +3,13 @@ from flask_ask import Ask, statement, question, session
 import os
 import random
 import csv, sqlite3
+#from rMinus3 import *
+import time
 
 app = Flask(__name__)
 ask = Ask(app, "/darwin")
+
+encode = {"walk":'1', "balance":2, "stand":'2'}
 
 
 @app.route('/')
@@ -18,13 +22,16 @@ def start_skill():
     return question(welcome_message)
 
 def execute(motion):
-    motion_dict = {'bow':'1 Bow'}
-    con = sqlite3.connect("rMinus.db")
-    cur = con.cursor()
-    cur.execute('SELECT * FROM pagedata where Page="'+motion_dict['bow']+'";')
-    print(cur.fetchall())
-    con.commit()
-    con.close()
+    print motion
+    flag = True
+    with open('file.txt', 'r') as file:
+        value = file.read()
+        if value != '-1' and len(value) != 0:
+            flag = False
+    if flag:
+        with open('file.txt','w') as file:
+            file.write(encode[motion])
+    
 
 @ask.intent("AMAZON.YesIntent")
 def yes_intent():
@@ -47,4 +54,5 @@ def stop():
     return statement(message)
     
 if __name__ == '__main__':
+    #time.sleep(1)
     app.run(debug=True)
